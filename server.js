@@ -1,27 +1,13 @@
-const express = require('express');
-const app = express();
-const cors=require('cors');
+const jsonServer = require('json-server');
+const server = jsonServer.create();
+const router = jsonServer.router('db.json'); // Assuming your JSON file is named db.json
+const middlewares = jsonServer.defaults();
 
+const PORT = process.env.PORT || 3000;
 
-app.use=express(cors());
+server.use(middlewares);
+server.use(router);
 
-
-// Define a route for /api/products
-app.get('/', (req, res) => {
-  // Handle the request and send a response
-  res.send('hello herre');
-});
-app.get('/service', (req, res) => {
-    // Handle the request and send a response
-    res.send('apidata');
-  });
-
-
-
-// Start the server
-const PORT = process.env.PORT || 3001;
-
-const apidata=require("./db.jsons")
-app.listen(PORT, () => {
-  console.log(`Server is running on port ${PORT}`);
+server.listen(PORT, () => {
+  console.log(`JSON Server is running on port ${PORT}`);
 });
